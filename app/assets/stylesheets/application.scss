@@ -1,0 +1,26 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+  padding-top: 70px;
+}
+
+p {
+  margin: 0;
+}
+
+h5 {
+  text-decoration: underline;
+}
+td {
+  padding: 0 15px 0 15px;
+}
+
+th {
+  padding: 0 15px 0 15px;
+}
+
+
+.navbar-brand {
+  width: 200px;
+}

@@ -1,0 +1,49 @@
+%h3 Coupons
+%input#myInput.form-control{placeholder: "Search Coupons", type: "text"}/
+%br/
+%table.table.table_boardered
+    %thead
+        %tr
+            %th Coupon
+            %th Item
+            %th Order
+            %th Amount
+            %th Created At 
+            %th Updated At
+    %tbody#couponTable
+        - @redeemed.each do |r|
+            %tr
+                %td= Coupon.find_by(id: r.source_id).name
+                %td= r.id
+                %td= r.order_id
+                %td= r.price
+                %td= r.created_at
+                %td= r.updated_at
+
+%br/
+
+%table.table.table_boardered
+    %thead
+        %tr
+            %th Product
+            %th Total Sold
+            %th Total Revenue
+    %tbody#productsTable
+        - @products.each do |p|
+            %tr
+                %td= p.name
+                %td= p.order_items.where(state: "sold").count
+                %td= p.order_items.sum(:price)
+
+= will_paginate @products, renderer: BootstrapPagination::Rails
+
+
+:javascript
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#couponTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });

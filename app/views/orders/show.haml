@@ -1,0 +1,78 @@
+%h1 #{@order.number}
+%table
+    %thead
+        %tr
+            %th ID
+            %th State
+            %th Total
+            %th Building
+            %th Canceled
+            %th Arrived
+            %th Created
+            %th Updated
+    %tbody
+        %tr
+            %td= @order.id
+            %td= @order.state
+            %td= @order.total
+            %td= @order.building_at
+            %td= @order.canceled_at
+            %td= @order.arrived_at
+            %td= @order.created_at
+            %td= @order.updated_at
+
+%br/
+%p= @order.user.name
+%p= @order.address.address1
+%p= @order.address.address2
+%p #{@order.address.city},  #{@order.address.state} #{@order.address.zipcode}
+
+%br/
+%h5 Order Items Detail
+%table
+    %thead
+        %tr 
+            %th Product
+            %th Quantity
+            %th Price
+            %th State
+            %th Source Type
+            %th Source ID
+            %th Created At
+            %th Updated At
+    %tbody
+        - @order.order_items.each do |i|
+            %tr
+                %td= Product.find_by(id: i.source_id).name
+                %td= i.quantity
+                %td= i.price
+                %td= i.state
+                %td= i.source_type
+                %td= i.source_id
+                %td= i.created_at
+                %td= i.updated_at
+
+%br/
+%h5 Payment Details
+%table
+    %thead
+        %tr 
+            %th Amount
+            %th State
+            %th Completed At
+            %th Refunded At
+            %th Payment Type
+            %th Created At
+            %th Updated At
+    %tbody
+        - @order.payments.each do |p|
+            %tr
+                %td= p.amount
+                %td= p.state
+                %td= p.completed_at
+                %td= p.refunded_at
+                %td= p.payment_type
+                %td= p.created_at
+                %td= p.updated_at
+
+    
