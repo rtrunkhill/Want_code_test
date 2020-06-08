@@ -3,11 +3,6 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.all
-    if params[:search]
-      @orders = Order.search(params[:search]).order("number ASC")
-    else
-      @orders = Order.all.order("number ASC")
-    end
   end
 
   def show
